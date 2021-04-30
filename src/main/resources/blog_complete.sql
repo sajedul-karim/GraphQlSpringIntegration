@@ -18,36 +18,6 @@ USE `blog`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `comments`
---
-
-DROP TABLE IF EXISTS `comments`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `comments` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `comment` varchar(200) NOT NULL,
-  `comment_date` varchar(45) NOT NULL,
-  `user_id` int NOT NULL,
-  `post_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id_idx` (`user_id`),
-  KEY `post_id_comments_idx` (`post_id`),
-  CONSTRAINT `post_id_comments` FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
-  CONSTRAINT `user_id_comments` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comments`
---
-
-LOCK TABLES `comments` WRITE;
-/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
-/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `post`
 --
 
@@ -59,10 +29,11 @@ CREATE TABLE `post` (
   `title` varchar(200) NOT NULL,
   `description` text NOT NULL,
   `published_date` varchar(45) NOT NULL,
-  `user_id` varchar(45) NOT NULL,
+  `user_id` int NOT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `user_id` FOREIGN KEY (`id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `post_user_user_id_map_idx` (`user_id`),
+  CONSTRAINT `post_user_user_id_map` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -71,6 +42,7 @@ CREATE TABLE `post` (
 
 LOCK TABLES `post` WRITE;
 /*!40000 ALTER TABLE `post` DISABLE KEYS */;
+INSERT INTO `post` VALUES (21,'Why Java fevorite','Java is a platform independent language','30-04-2021',9),(23,'Why GraphQL','Developed by facebook','30-04-2021',9),(24,'Why love film','Because it\'s my passion ','28-04-2021',10),(25,'What is career planing','Its a continuous improvement ','28-04-2021',11);
 /*!40000 ALTER TABLE `post` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -91,7 +63,7 @@ CREATE TABLE `user` (
   `permanent_address` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email_UNIQUE` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,7 +72,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (6,'Sajedul Karim','mesukcse08@gmail.com','male','01-06-2021','Dhaka','Rangpur'),(8,'Najnin Naher','najninnipa@gmail.com','female','01-06-2021','Dhaka','Kurigram');
+INSERT INTO `user` VALUES (9,'Sajedul Karim','skarim@gmail.com','male','01-06-1990','Dhaka, BanglaDesh','Rangpur, Bangladesh'),(10,'Aamir Khan','aamir@email.com','male','10-01-1960','Mumbai, India','Mumbai, India'),(11,'Merry','merry@gmail.com','female','01-09-1980','USA','USA');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -113,4 +85,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-04-30 10:07:32
+-- Dump completed on 2021-04-30 13:23:51

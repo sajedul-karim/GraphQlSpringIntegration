@@ -8,7 +8,7 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-        ddl-auto: create
+        ddl-auto: none
         naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
     show-sql: true
     database: mysql

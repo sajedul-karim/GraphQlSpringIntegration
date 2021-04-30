@@ -11,4 +11,6 @@ import java.util.List;
 public interface PostRepository extends CrudRepository<PostEntity, Integer> {
     @Override
     List<PostEntity> findAll();
+
+    List<PostEntity> findAllByUserId(Integer userId);
 }

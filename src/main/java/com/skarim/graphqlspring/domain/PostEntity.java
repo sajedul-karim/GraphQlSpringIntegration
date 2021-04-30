@@ -1,7 +1,6 @@
 package com.skarim.graphqlspring.domain;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +10,12 @@ public class PostEntity {
     private String title;
     private String description;
     private String publishedDate;
-    private String userId;
-    private Collection<CommentsEntity> commentsById;
-    private UserEntity userById;
+    private int userId;
+    private UserEntity userByUserId;
 
     @Id
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -57,35 +56,21 @@ public class PostEntity {
 
     @Basic
     @Column(name = "user_id")
-    public String getUserId() {
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, title, description, publishedDate, userId);
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    public UserEntity getUserByUserId() {
+        return userByUserId;
     }
 
-    @OneToMany(mappedBy = "postByPostId")
-    public Collection<CommentsEntity> getCommentsById() {
-        return commentsById;
-    }
-
-    public void setCommentsById(Collection<CommentsEntity> commentsById) {
-        this.commentsById = commentsById;
-    }
-
-    @OneToOne
-    @JoinColumn(name = "id", referencedColumnName = "id", nullable = false , insertable=false, updatable=false)
-    public UserEntity getUserById() {
-        return userById;
-    }
-
-    public void setUserById(UserEntity userById) {
-        this.userById = userById;
+    public void setUserByUserId(UserEntity userByUserId) {
+        this.userByUserId = userByUserId;
     }
 }

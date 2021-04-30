@@ -1,5 +1,8 @@
 package com.skarim.graphqlspring.domain;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Objects;
@@ -14,8 +17,7 @@ public class UserEntity {
     private String dob;
     private String presentAddress;
     private String permanentAddress;
-    private Collection<CommentsEntity> commentsById;
-    private PostEntity postById;
+    private Collection<PostEntity> postsById;
 
     @Id
     @Column(name = "id")
@@ -88,26 +90,12 @@ public class UserEntity {
         this.permanentAddress = permanentAddress;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, fullName, email, gender, dob);
+    @OneToMany(mappedBy = "userByUserId", fetch = FetchType.EAGER)
+    public Collection<PostEntity> getPostsById() {
+        return postsById;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
-    public Collection<CommentsEntity> getCommentsById() {
-        return commentsById;
-    }
-
-    public void setCommentsById(Collection<CommentsEntity> commentsById) {
-        this.commentsById = commentsById;
-    }
-
-    @OneToOne(mappedBy = "userById")
-    public PostEntity getPostById() {
-        return postById;
-    }
-
-    public void setPostById(PostEntity postById) {
-        this.postById = postById;
+    public void setPostsById(Collection<PostEntity> postsById) {
+        this.postsById = postsById;
     }
 }
