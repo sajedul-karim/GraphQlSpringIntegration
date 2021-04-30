@@ -1,0 +1,40 @@
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.0.101:3406/blog
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        ddl-auto: create
+        naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    show-sql: true
+    database: mysql
+
+# HTTP Server
+server:
+  port: 8081
+
+graphql:
+  servlet:
+    mapping: /graphql
+    enabled: true
+    exception-handlers-enabled: true
+    context-setting: per_query_with_instrumentation
+    tracingEnabled: false
+
+graphiql:
+  mapping: /graphiql
+  endpoint:
+    graphql: /graphql
+    subscriptions: /subscriptions
+  subscriptions:
+    reconnect: false
+    timeout: 30
+  enabled: true
+  pageTitle: GraphiQL
+  cdn:
+    enabled: false
+    version: 0.13.0
