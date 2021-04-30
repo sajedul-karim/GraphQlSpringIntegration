@@ -26,4 +26,5 @@ public class PostQueryResolver implements GraphQLQueryResolver {
     public List<PostEntity> postByUserId(Integer userId) {
         return postService.findByUserId(userId);
     }
+
 }

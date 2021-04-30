@@ -51,4 +51,14 @@ public class PostServiceImpl implements PostService {
     public List<PostEntity> findAll() {
         return postRepository.findAll();
     }
+
+    @Override
+    public boolean deletePostById(Integer postId) {
+        Optional<PostEntity> postEntityOptional = postRepository.findById(postId);
+        if (!postEntityOptional.isPresent()){
+            throw new RuntimeException("Invalid post id provided");
+        }
+        postRepository.delete(postEntityOptional.get());
+        return true;
+    }
 }

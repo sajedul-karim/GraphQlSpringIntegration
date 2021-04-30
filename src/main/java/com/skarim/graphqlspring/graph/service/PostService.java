@@ -10,4 +10,6 @@ public interface PostService {
     List<PostEntity> findByUserId(Integer userId);
 
     List<PostEntity> findAll();
+
+    boolean deletePostById(Integer postId);
 }
