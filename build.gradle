@@ -17,9 +17,11 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// GraphQL dependencies
 	implementation 'com.graphql-java-kickstart:graphql-spring-boot-starter:8.0.0'
 	runtimeOnly 'com.graphql-java-kickstart:graphiql-spring-boot-starter:8.0.0'
 
+	// Database dependencies
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	compile group: 'org.hibernate', name: 'hibernate-c3p0', version: '5.2.10.Final'
 	runtimeOnly 'mysql:mysql-connector-java'
